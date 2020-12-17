@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+  <head profile="http://www.w3.org/2005/10/profile">
+    <title>DatWik</title>
+
+
+
+    <link rel="icon" type="image/png" href="/theme/img/favicon.png" />
+    <link rel="canonical" href="https://www.br8.ca/"  />
+
+    
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+    <link rel='dns-prefetch' href='//cdn.jsdelivr.net' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"> 
+    <link href="theme/css/main.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  </head><body id="page-top">
+    <div id="app">
+
+        <v-app id="inspire">
+            <v-app-bar
+                app
+                color="white"
+                flat
+            >
+                <v-container class="py-0 fill-height">
+                    <v-avatar
+                        class="mr-10"
+                        color="grey darken-1"
+                        size="32"
+                    ></v-avatar>
+            
+
+                    <v-btn
+                        text
+                        to="/"
+                    >
+                        Topics
+                    </v-btn>
+            
+                    <v-spacer></v-spacer>
+            
+                </v-container>
+            </v-app-bar>
+        
+            <v-main class="grey lighten-3">
+                <v-container>
+                    <v-row>                    
+                        <v-col>
+                            <router-view></router-view>    
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-main>
+            </v-app>       
+    </div>
+</body>
+
+<script id="screen-topics-template" type="text/x-template">
+<v-card
+    class="mx-auto"
+    max-width="500"
+  >
+  <v-container fluid>
+    <v-row dense>
+      <v-col cols="12">
+        <v-list>
+          <template v-for="item in items">
+          
+            <v-list-item
+            @click="loadTable(item.table)"
+            >
+              <v-list-item-avatar>
+                <v-icon
+                  v-text="item.icon"
+                ></v-icon>
+              </v-list-item-avatar>
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-col>
+    </v-row>
+  </v-container>
+</v-card>
+</script>
+
+<script id="screen-data-template" type="text/x-template">
+  <div>
+      <v-card>
+        <v-card-title>
+            <v-text-field 
+                v-model="search"
+                label="Search"
+                single-line
+                hide-details
+                clearable
+                append-icon="mdi-magnify"
+                @click:append="fetchRowsSearch()"
+                @keyup.enter="fetchRowsSearch()"
+            ></v-text-field>
+        </v-card-title>
+        <v-data-table
+            :headers="headers"
+            :items="dataRows"
+            class="elevation-1"
+            hide-default-footer
+            :page.sync="page"
+            :loading="loading"
+            :items-per-page="itemsPerPage"
+            :options.sync="options"
+            :server-items-length="totalItemCount"
+            @page-count="pageCount = $event"
+            show-expand
+            single-expand
+        >
+
+
+
+        <template v-for="(slot,i) in linkSlots" v-slot:[`item.${slot}`]="{ item }">
+            <template v-if="is_url(item, slot)">
+                <a :href="get_url(item, slot)" target="_blank"> {{ get_url_text(item, slot) }} </a>
+            </template>
+            <template v-else>
+                {{ get_url_text(item, slot) }}
+            </template>
+        </template>
+
+        <template v-slot:top>
+            <v-toolbar flat >
+                <v-toolbar-title>Streaming Services</v-toolbar-title>
+                <v-divider
+                class="mx-4"
+                inset
+                vertical
+                ></v-divider>
+                <v-spacer/>
+                <v-dialog v-model="dialog" max-width="500px">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                    >
+                    New Item
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                        <span class="headline">{{ formTitle }}</span>
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="save">
+                            Save
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogDelete" max-width="500px">
+                    <v-card>
+                        <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                            <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                </v-toolbar>
+                </template>
+
+                <template v-slot:item.actions="{ item }">
+                    <v-icon
+                        small
+                        class="mr-2"
+                        @click="editItem(item)"
+                    >
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon
+                        small
+                        @click="deleteItem(item)"
+                    >
+                        mdi-delete
+                    </v-icon>
+                    </template>
+                        <template v-slot:no-data>
+                    <v-btn
+                        color="primary"
+                        @click="initialize"
+                    >
+                        Reset
+                    </v-btn>
+                </template>
+                <template v-slot:expanded-item="{ headers, item }">
+                    <td :colspan="headers.length">
+                        <table>
+                            
+                            <template v-for="(f,i) in expandedFields" >                               
+                                <template v-if="item[f]">
+                                    <tr><td>
+                                    {{c(f)}}: </td><td> {{ item[f] }}
+                                    </td></tr>
+                                </template>
+                            </template>
+                        </table>
+                    </td>
+                </template>                
+        </v-data-table>
+        <div class="text-center pt-2">
+            <v-pagination v-model="page" :length="pageCount" total-visible="5"></v-pagination>
+        </div>
+    </v-card>
+  </div>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.2/vuex.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+<script src="theme/js/captions.js"></script>
+<script src="theme/js/util.js"></script>
+
+<script src="theme/js/comp/screen-topics.js"></script>
+<script src="theme/js/comp/screen-data.js"></script>
+
+<script src="theme/js/store.js"></script>
+<script src="theme/js/app.js"></script>
+</html>
