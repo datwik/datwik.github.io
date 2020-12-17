@@ -38,7 +38,7 @@ var store_util = {
 var store = new Vuex.Store({
     state: {
         // api: 'http://localhost:5000',
-       api: 'http://api.datwik.com',
+       api: 'https://api.datwik.com',
         
         captions: window.dw_captions['en'],
 
