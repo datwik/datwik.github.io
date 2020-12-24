@@ -13,7 +13,7 @@ dw_captions['en'] =  {
   'account': 'Account',
   'url': 'Link',
   'price_monthly': 'Monthly Fee',
-  'price_yearly': 'Yearly Fee',
+  'price_yearly': 'Annual Fee',
 
   'active' : 'Active',
   'location_name' : 'Name',

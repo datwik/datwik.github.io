@@ -7,7 +7,7 @@
 
 
     <link rel="icon" type="image/png" href="/theme/img/favicon.png" />
-    <link rel="canonical" href="https://www.br8.ca/"  />
+    <link rel="canonical" href="https://www.datwik.com"  />
 
     
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
@@ -30,30 +30,7 @@
     <div id="app">
 
         <v-app id="inspire">
-            <v-app-bar
-                app
-                color="white"
-                flat
-            >
-                <v-container class="py-0 fill-height">
-                    <v-avatar
-                        class="mr-10"
-                        color="grey darken-1"
-                        size="32"
-                    ></v-avatar>
-            
-
-                    <v-btn
-                        text
-                        to="/"
-                    >
-                        Topics
-                    </v-btn>
-            
-                    <v-spacer></v-spacer>
-            
-                </v-container>
-            </v-app-bar>
+            <app-bar-header></app-bar-header>
         
             <v-main class="grey lighten-3">
                 <v-container>
@@ -256,17 +233,50 @@
   </div>
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.2/vuex.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script id="app-bar-header-template" type="text/x-template">
+
+    <v-app-bar
+                app
+                color="white"
+                flat
+            >
+                <v-container class="py-0 fill-height">
+                    <v-avatar
+                        class="mr-10"
+                        color="grey darken-1"
+                        size="32"
+                    ></v-avatar>
+            
+
+                    <v-btn
+                        text
+                        to="/"
+                    >
+                        Topics
+                    </v-btn>
+            
+                    <v-spacer></v-spacer>
+            
+                </v-container>
+            </v-app-bar>
+</script>
+            
+<script type="text/javascript">
+var api = { url:'https://api.datwik.com'}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.2/vuex.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
 
 <script src="theme/js/captions.js"></script>
 <script src="theme/js/util.js"></script>
 
 <script src="theme/js/comp/screen-topics.js"></script>
 <script src="theme/js/comp/screen-data.js"></script>
+<script src="theme/js/comp/app-bar-header.js"></script>
 
 <script src="theme/js/store.js"></script>
 <script src="theme/js/app.js"></script>
