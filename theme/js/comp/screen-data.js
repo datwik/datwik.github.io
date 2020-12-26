@@ -42,7 +42,7 @@ Vue.component('screen-data', {
           self.$store.dispatch('get_fields'), 
           // self.$store.dispatch('get_rows')
         ]).then(() => {
-            console.log(`sd fields: ${self.$store.state.fields['company']}`)
+            // console.log(`sd fields: ${self.$store.state.fields['company']}`)
             // console.log(`sd rows: ${self.$store.state.rows}`)
             self.initialize();
         })          
@@ -58,6 +58,14 @@ Vue.component('screen-data', {
           return Array.from( this.$store.state.fields.values()).
                   filter(f => f.subtype == 1).
                   map(f => f.field.replace('_url', ''));
+        },
+
+        hasExpandedFields: function () {
+          var expandedCount = Array.from( this.$store.state.fields.values()).
+                  filter(f => f.expanded).
+                  length;
+          // console.log('Expanded: ' + expandedCount)
+          return  expandedCount > 0;
         },
 
         expandedFields: function () {
@@ -100,7 +108,7 @@ Vue.component('screen-data', {
           }); 
           headerList.push({ text: '', value: 'data-table-expand' });
           this.headers = headerList;
-          console.log(`sd headers: ${this.headers}`)
+          // console.log(`sd headers: ${this.headers}`)
 
 
           this.updateRows();

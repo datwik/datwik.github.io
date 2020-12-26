@@ -94,7 +94,7 @@ var store = new Vuex.Store({
     mutations: {
         update_objects (state, payload) {
             state.objects = payload;
-            console.log(`objects: ${JSON.stringify(state.objects)}`);
+            // console.log(`objects: ${JSON.stringify(state.objects)}`);
         },
 
         change_table (state, payload) {
@@ -107,12 +107,12 @@ var store = new Vuex.Store({
                 valueMap.set(v.field, v);
             });
             state.fields = valueMap;
-            console.log(`fields: ${JSON.stringify([...valueMap])}`);
+            // console.log(`fields: ${JSON.stringify([...valueMap])}`);
         },
 
         update_rows (state, payload) {
             state.rows = payload;
-            console.log(`rows: ${JSON.stringify(state.rows)}`);
+            // console.log(`rows: ${JSON.stringify(state.rows)}`);
         },
 
         update_rows_filter(state, payload) {
@@ -147,7 +147,7 @@ var store = new Vuex.Store({
             }).then(function(json) {
                 return json;
             }).catch(function(e) {
-              console.log('Error: ' + e );
+            //   console.log('Error: ' + e );
               throw new Error(e);
             });
         },

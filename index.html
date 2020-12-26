@@ -101,7 +101,7 @@
             :options.sync="options"
             :server-items-length="totalItemCount"
             @page-count="pageCount = $event"
-            show-expand
+            :show-expand="hasExpandedFields"
             single-expand
         >
 
@@ -126,7 +126,7 @@
                 ></v-divider>
                 <v-spacer/>
                 <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
+                <!-- <template v-slot:activator="{ on, attrs }">
                     <v-btn
                     color="primary"
                     dark
@@ -136,7 +136,7 @@
                     >
                     New Item
                     </v-btn>
-                </template>
+                </template> -->
                 <v-card>
                     <v-card-title>
                         <span class="headline">{{ formTitle }}</span>
@@ -214,8 +214,7 @@
                 </template>
                 <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length">
-                        <table>
-                            
+                        <table>                            
                             <template v-for="(f,i) in expandedFields" >                               
                                 <template v-if="item[f]">
                                     <tr><td>
