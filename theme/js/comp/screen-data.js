@@ -8,18 +8,8 @@ Vue.component('screen-data', {
         dataRows: [],
         editedIndex: -1,
         editedItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
         },
         defaultItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
         },
         page: 1,
         pageCount: 0,
@@ -114,6 +104,13 @@ Vue.component('screen-data', {
           this.updateRows();
         },
 
+        tableTitle: function(){
+          var ss = this.$store.state;
+          var obj = ss.objects.filter(o => o.oid == ss.tableId)
+          if(obj && obj[0])
+            return ss.captions[obj[0].object + '_name']
+        },
+
         updateRows: function(){
           var self = this;
           var rowList = new Array();
@@ -121,7 +118,7 @@ Vue.component('screen-data', {
             var row = {};
             row['id'] = v.id
             self.$store.state.fields.forEach((fv, fk) => {
-              row[fk] = v.data[fv.seqnum]
+              row[fk] = self.formatField(fv.type, v.data[fv.seqnum])
             });
 
             rowList.push(row);
@@ -129,6 +126,30 @@ Vue.component('screen-data', {
 
           this.dataRows = rowList;   
           this.updateTotalItemCount();
+        },
+
+        formatField: function(type, value){
+          var self = this;
+          if(type == 3){            
+            return this.formatMoney(value);
+          }
+          else if(type == 4 && value){
+            return value.split('|').map(s => self.capitalizeFirstLetter(s)).join(", ")
+          }
+
+          return value;
+        },
+
+        capitalizeFirstLetter: function(v) {
+          return v.charAt(0).toUpperCase() + v.slice(1);
+        },
+
+        formatMoney : function(v){
+          if(!v || v == '')
+              v = '0.00'
+          let value = !v ? '0.00' : v;
+          value = v && v.toFixed ?  v.toFixed(2) : value;
+          return parseFloat(value).toLocaleString('en-CA', { style: 'currency', currency: 'CAD' })
         },
 
         updateTotalItemCount: function(){

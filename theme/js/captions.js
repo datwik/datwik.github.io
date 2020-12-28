@@ -14,6 +14,7 @@ dw_captions['en'] =  {
   'url': 'Link',
   'price_monthly': 'Monthly Fee',
   'price_yearly': 'Annual Fee',
+  'content': 'Content',
 
   'active' : 'Active',
   'location_name' : 'Name',
