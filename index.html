@@ -82,6 +82,7 @@
                     <v-btn
                         text
                         to="/"
+                        class="topicsButton"
                     >
                         Topics
                     </v-btn>
@@ -273,40 +274,26 @@
 </script>
 
 <script id="app-footer-template" type="text/x-template">
-  
-    <v-footer
-        padless
-        class="mx-sm-auto"
-    >
-
-   
-    <v-card
-      flat
-      tile
-      class="text-center"
-    >
-      <v-card-text class="mt-12">
-        <div class="text-body-3">
-            <strong>Disclaimer:</strong> Use at your own risk, absolutely no warranty about accuracy or applicability of the data. All trademarks belong to the respective owners. This content is neither endorsed nor sponsored by any of the the third parties mentioned above. 
-        </div>
-      </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-text class="text-h6 text-left">
-        &copy; {{ new Date().getFullYear() }} DatWik
-
-        <!-- <v-btn
-        :key="icon"
-        class="mx-4"
-        icon
-      >
-        <v-icon size="20px">
-            mdi-twitter
-        </v-icon>
-      </v-btn>  -->
-      </v-card-text>
-    </v-card>
+    <v-footer padless >
+        <v-container fluid class="white" fill-height>
+            <v-row class="mb-3"> 
+              <v-divider></v-divider>
+            </v-row>
+            <v-row no-gutters justify="center" align="center"> 
+                <v-col cols="1">
+                </v-col>
+                <v-col cols="5" class="text-caption" >
+                    &copy; {{ new Date().getFullYear() }} DatWik  &nbsp;|&nbsp; <a href="/terms.html"  target="_blank">Terms</a>
+                </v-col>
+                <v-col cols="1">         
+                    <a href="https://twitter.com/datwik" target="_blank">           
+                        <v-icon size="25px">
+                            mdi-twitter
+                        </v-icon>                    
+                    <a>
+                </v-col>               
+            <v-row>
+        <v-container>   
   </v-footer>
 </script>
             

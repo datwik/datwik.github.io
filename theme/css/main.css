@@ -1,0 +1,5 @@
+
+
+.topicsButton.v-btn--active::before {
+    opacity: 0;
+}
