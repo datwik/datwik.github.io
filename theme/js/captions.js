@@ -7,6 +7,8 @@ dw_captions['en'] =  {
   'covid_test_centre_name': 'COVID19 Testing Centres',
   'covid_test_centre_icon': 'mdi-medical-bag',
 
+  'internet_service_provider_name': 'Internet Service Providers',
+  'internet_service_provider_icon': 'mdi-wan',
 
 
   'company': 'Company',
@@ -44,6 +46,11 @@ dw_captions['en'] =  {
   'free_parking':'Free Parking',
   'public_transit':'Public Transit',
   
+  'setup_fee': 'Setup Fee',
+  'usage_gb': 'Usage Gb',
+  'down_speed_mbps': 'Download Speed Mbps',
+  'up_speed_mbps': 'Upload Speed Mbps',
+  'municipality' : 'City',
 };
 
 var dw_ca_provinces = {};
