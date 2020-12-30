@@ -314,8 +314,20 @@
             
 
 
-                    <dialog-feedback></dialog-feedback>
-
+                    <!-- <dialog-feedback></dialog-feedback>
+                    
+                    <v-btn
+                        tile
+                        disabled
+                        outlined                    
+                    >   
+                        ON &nbsp;
+                        <v-img
+                            max-height="20"
+                            max-width="50"
+                            src="theme/img/flags/canada.png"
+                        ></v-img>
+                    </v-btn> -->
                 </v-container>
             </v-app-bar>
 </script>
@@ -339,6 +351,7 @@
           <!-- <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }"> -->
                 <v-btn icon color="primary" v-bind="attrs" v-on="on">
+                    <!-- <span class="hidden-md-and-down"> Feedback</span> -->
                     <v-icon>mdi-send</v-icon>
                 </v-btn>
             <!-- </template> -->
@@ -348,77 +361,39 @@
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">User Profile</span>
+            <span class="headline">We'd like to hear from you!</span>
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Email"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Legal middle name"
-                    hint="example of helper text only on focus"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                >
-                  <v-text-field
-                    label="Legal last name*"
-                    hint="example of persistent helper text"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Email*"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Password*"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                >
-                  <v-select
-                    :items="['0-17', '18-29', '30-54', '54+']"
-                    label="Age*"
-                    required
-                  ></v-select>
-                </v-col>
-                <v-col
-                  cols="12"
-                  sm="6"
-                >
-                  <v-autocomplete
-                    :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                    label="Interests"
-                    multiple
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
+                <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        label="Your email"
+                        :value="feedbackEmail"
+                        required
+                      ></v-text-field>                      
+                    </v-col>
+                    <v-col
+                      cols="12"
+                    >
+                      <v-autocomplete
+                        :items="['Website', 'New topic suggestion', 'Correction', 'General']"
+                        label="Theme*"
+                        :value="feedbackTheme"
+                        multiple
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                    >
+                    <v-textarea
+                      counter
+                      label="Feedback*"
+                      :rules="rules"
+                      :value="feedbackText"
+                    ></v-textarea>
+                    </v-col>                
+                  </v-row>
             </v-container>
             <small>*indicates required field</small>
           </v-card-text>
