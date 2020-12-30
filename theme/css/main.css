@@ -3,3 +3,17 @@
 .topicsButton.v-btn--active::before {
     opacity: 0;
 }
+
+
+.feedbackButton {
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform-origin: bottom right;
+
+    position: fixed;
+    right: 0px;
+    top: 48%;
+  }

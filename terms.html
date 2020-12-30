@@ -38,15 +38,25 @@
     
   </head>
   <body id="terms_body" class="terms_body">
-    <v-container class="white" >
-      <v-row> 
-        <v-col>
-          <h1>Terms of Service</h1>
-<p>Use at your own risk, absolutely no warranty about accuracy or applicability of the data shown to you. </p>
-<p>All trademarks belong to the respective owners. </p>
+    <div id="app">
+      <v-app id="dwt">
+        <v-container fluid class="white">
+          <v-card>
+            <v-card-title>
+              Terms of Service
+            </v-card-title>
+            <v-card-text>
+              <p>Use at your own risk, absolutely no warranty about accuracy or applicability of the data shown to you. </p>
+<p>All trademarks, service marks and company names are the property of their respective owners. </p>
 <p>Contents of this website is neither endorsed, nor sponsored by any of the the third parties mentioned herein.  </p>
-        </v-col>
-      </v-row>
-    </v-container>
+<p>THERE IS NO WARRANTY FOR THE DATA PROVIDED THROUHOUT THE DATWIK WEBSITE. ALL THE DATA IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND USABILITY OF THE DATA FOUND HERE IS WITH YOU. </p>
+            </v-card-text>
+          </v-card>
+        </v-container>
+      </v-app>       
+    </div>        
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script> 
+  <script> new Vue({el: '#app', vuetify: new Vuetify()});</script>
 </html>

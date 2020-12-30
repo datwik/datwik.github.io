@@ -111,6 +111,13 @@ Vue.component('screen-data', {
             return ss.captions[obj[0].object + '_name']
         },
 
+        tableFooterText: function(){
+          var ss = this.$store.state;
+          var obj = ss.objects.filter(o => o.oid == ss.tableId)
+          if(obj && obj[0])
+            return ss.captions[obj[0].object + '_footer']
+        },
+
         updateRows: function(){
           var self = this;
           var rowList = new Array();
@@ -133,7 +140,7 @@ Vue.component('screen-data', {
           if(type == 3){            
             return this.formatMoney(value);
           }
-          else if(type == 4 && value){
+          else if(type == 4 && value && value.split){
             return value.split('|').map(s => self.capitalizeFirstLetter(s)).join(", ")
           }
 

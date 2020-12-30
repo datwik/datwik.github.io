@@ -9,6 +9,7 @@ dw_captions['en'] =  {
 
   'internet_service_provider_name': 'Internet Service Providers',
   'internet_service_provider_icon': 'mdi-wan',
+  'internet_service_provider_footer': 'Prices do not include taxes or possible discounts.',
 
 
   'company': 'Company',
@@ -47,6 +48,7 @@ dw_captions['en'] =  {
   'public_transit':'Public Transit',
   
   'setup_fee': 'Setup Fee',
+  'modem_rental_fee': 'Modem Rental Fee',
   'usage_gb': 'Usage Gb',
   'down_speed_mbps': 'Download Speed Mbps',
   'up_speed_mbps': 'Upload Speed Mbps',

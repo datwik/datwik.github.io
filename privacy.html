@@ -38,10 +38,15 @@
     
   </head>
   <body id="terms_body" class="terms_body">
-    <v-container class="white" >
-      <v-row> 
-        <v-col>
-          <h1>Privacy Policy</h1>
+    <div id="app">
+      <v-app id="dwt">
+        <v-container fluid class="white">
+          <v-card>
+            <v-card-title>
+              Privacy Policy
+            </v-card-title>
+            <v-card-text>
+              <h1>Privacy Policy</h1>
 <p>We do not sell your personal information to third parties for their marketing purposes without your explicit consent.
 We do not disclose it to others except as disclosed in this Policy or required to provide you with the services of the Site and
 mobile applications and its related sites, applications, services and goods (collectively, the “Site”), meaning - to allow you to buy, sell,
@@ -97,8 +102,13 @@ The fact that we link to a website is not an endorsement, authorization or repre
 of their privacy or information security policies or practices. We do not exercise control over third party websites. These other websites may place their
 own cookies or other files on your computer, collect data or solicit Personal Information from you. We encourage you to read the privacy policies or statements
 of the other websites you visit.</p>
-        </v-col>
-      </v-row>
-    </v-container>
+            </v-card-text>
+          </v-card>
+        </v-container>
+      </v-app>       
+    </div>        
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script> 
+  <script> new Vue({el: '#app', vuetify: new Vuetify()});</script>
 </html>

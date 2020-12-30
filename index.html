@@ -51,48 +51,19 @@
                     </v-row>
                 </v-container>
             </v-main>
-            <app-footer></app-footer>           
+            <app-footer></app-footer>
+            
+            <!-- <v-btn
+                color="primary"
+                elevation="10"
+                class="feedbackButton hidden-md-and-down"                
+            >
+                Feedback                    
+            </v-btn>         -->
+
             </v-app>       
     </div>
 </body>
-<script id="app-bar-header-template" type="text/x-template">
-
-    <v-app-bar
-                app
-                color="white"
-                flat
-            >
-                <v-container class="py-0 fill-height">
-                    
-                    <v-avatar
-                        class="mr-10"
-                        size="32"
-                    >
-                        <router-link to="/">
-                            <v-img
-                                src="theme/img/logo/log-ag.png" 
-                                max-height="32"
-                                max-width="32"
-                            ></v-img>
-                        </router-link>
-                    </v-avatar>
-
-            
-
-                    <v-btn
-                        text
-                        to="/"
-                        class="topicsButton"
-                    >
-                        Topics
-                    </v-btn>
-            
-                    <v-spacer></v-spacer>
-            
-                </v-container>
-            </v-app-bar>
-</script>
-            
 
 <script id="screen-topics-template" type="text/x-template">
 <v-card
@@ -265,6 +236,14 @@
                         </table>
                     </td>
                 </template>                
+                <template v-slot:footer>
+                    <v-card>
+                        <v-card-text>
+                            <i> {{ tableFooterText() }} </i>
+                        </v-card-text>
+                    </v-card>
+                </template>                
+
         </v-data-table>
         <div class="text-center pt-2">
             <v-pagination v-model="page" :length="pageCount" total-visible="5"></v-pagination>
@@ -297,6 +276,172 @@
   </v-footer>
 </script>
             
+<script id="app-bar-header-template" type="text/x-template">
+
+    <v-app-bar
+                app
+                color="white"
+                flat
+            >
+                <v-container class="py-0 fill-height">
+                    
+                    <v-avatar
+                        class="mr-10"
+                        size="32"
+                    >
+                        <router-link to="/">
+                            <v-img
+                                src="theme/img/logo/log-ag.png" 
+                                max-height="32"
+                                max-width="32"
+                            ></v-img>
+                        </router-link>
+                    </v-avatar>
+
+            
+
+                    <v-btn
+                        text
+                        to="/"
+                        class="topicsButton"
+                    >
+                        Topics
+                    </v-btn>
+            
+                    <v-spacer></v-spacer>
+            
+
+
+                    <!-- <dialog-feedback></dialog-feedback> -->
+
+                </v-container>
+            </v-app-bar>
+</script>
+            
+<script id="dialog-feedback-template" type="text/x-template">
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="600px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <!-- <v-btn
+            color="primary"
+            dark
+            v-bind="attrs"
+            v-on="on"            
+          >
+            Open Dialog
+          </v-btn> -->
+
+          <!-- <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }"> -->
+                <v-btn icon color="primary" v-bind="attrs" v-on="on">
+                    <v-icon>mdi-send</v-icon>
+                </v-btn>
+            <!-- </template> -->
+            <!-- <span>Send Feedback</span> -->
+        <!-- </v-tooltip> -->
+
+        </template>
+        <v-card>
+          <v-card-title>
+            <span class="headline">User Profile</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Email"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Legal middle name"
+                    hint="example of helper text only on focus"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    label="Legal last name*"
+                    hint="example of persistent helper text"
+                    persistent-hint
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Email*"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Password*"
+                    type="password"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-select
+                    :items="['0-17', '18-29', '30-54', '54+']"
+                    label="Age*"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-autocomplete
+                    :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                    label="Interests"
+                    multiple
+                  ></v-autocomplete>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+</script>
+    
+
 <script type="text/javascript">
 var api = { url:'https://api.datwik.com'}
 </script>
@@ -314,6 +459,7 @@ var api = { url:'https://api.datwik.com'}
 <script src="theme/js/comp/screen-data.js"></script>
 <script src="theme/js/comp/app-bar-header.js"></script>
 <script src="theme/js/comp/app-footer.js"></script>
+<script src="theme/js/comp/dialog-feedback.js"></script>
 
 <script src="theme/js/store.js"></script>
 <script src="theme/js/app.js"></script>
