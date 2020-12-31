@@ -45,13 +45,15 @@
             <app-bar-header></app-bar-header>
         
             <v-main class="white">
-                <v-container>
-                    <v-row>                    
-                        <v-col>
-                            <router-view></router-view>    
-                        </v-col>
-                    </v-row>
-                </v-container>
+                
+                    <v-container>
+                        <v-row>                    
+                            <v-col>
+                                <router-view></router-view>    
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    
             </v-main>
             <app-footer></app-footer>
             
@@ -255,7 +257,7 @@
 </script>
 
 <script id="app-footer-template" type="text/x-template">
-    <v-footer padless >
+    <v-footer padless>       
         <v-container fluid class="white" fill-height>
             <v-row class="mb-3"> 
               <v-divider></v-divider>
@@ -274,7 +276,7 @@
                     </a> -->
                 </v-col>               
             </v-row>
-        </v-container>   
+        </v-container>  
   </v-footer>
 </script>
             
@@ -293,7 +295,7 @@
                     >
                         <router-link to="/">
                             <v-img
-                                src="theme/img/logo/log-ag.png" 
+                                src="theme/img/logo/datwik-32.png" 
                                 max-height="32"
                                 max-width="32"
                             ></v-img>
@@ -314,20 +316,20 @@
             
 
 
-                    <!-- <dialog-feedback></dialog-feedback>
+                    <!-- <dialog-feedback></dialog-feedback> -->
                     
-                    <v-btn
-                        tile
-                        disabled
+                    <v-card
                         outlined                    
+                        min-width=60                        
                     >   
-                        ON &nbsp;
+                      <v-card-actions class="pr-2 py-1">
+                        <div class="grey--text mr-2"><strong>ON</strong></div>
                         <v-img
-                            max-height="20"
-                            max-width="50"
-                            src="theme/img/flags/canada.png"
-                        ></v-img>
-                    </v-btn> -->
+                            max-width="32"
+                            src="theme/img/flags/canada_128.png"
+                        ></v-img>                        
+                      </v-card-actions>                     
+                    </v-card>
                 </v-container>
             </v-app-bar>
 </script>
