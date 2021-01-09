@@ -50,8 +50,6 @@ Vue.component('dialog-feedback', {
 
         sendFeedback:function(){   
             var self = this;
-            console.log('Send it!')
-            // console.log('Text', self.feedbackText, self.feedbackEmail);
             var headers = {};
             axios({
                 url: self.$store.state.api + '/action/feedback',
@@ -66,9 +64,9 @@ Vue.component('dialog-feedback', {
                       't': self.feedbackText,
                   }
                 },
-                withCredentials: true
+                // withCredentials: true  //  Credential is not supported if the CORS header ‘Access-Control-Allow-Origin’ is ‘*’
             }).then(function(res) {
-                console.log('Feedback sent');
+                // console.log('Feedback sent');
             }).catch(function(e) {
                 console.log('Error: ' + e );
             });
