@@ -46,7 +46,7 @@ var store = new Vuex.Store({
         rows: [],
         rows_filter: {},
         
-        tableId: 2,
+        tableId: null,
         
         table_fields: [],
         detail_fields: [],

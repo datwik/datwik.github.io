@@ -57,13 +57,7 @@
             </v-main>
             <app-footer></app-footer>
             
-            <!-- <v-btn
-                color="primary"
-                elevation="10"
-                class="feedbackButton hidden-md-and-down"                
-            >
-                Feedback                    
-            </v-btn>         -->
+            <dialog-feedback type="side"> </dialog-feedback>
 
             </v-app>       
     </div>
@@ -265,16 +259,15 @@
             <v-row no-gutters justify="center" align="center"> 
                 <v-col cols="1">
                 </v-col>
-                <v-col cols="5" class="text-caption" >
-                    &copy; {{ new Date().getFullYear() }} DatWik  &nbsp;|&nbsp; <a href="/terms.html"  target="_blank">Terms</a>
+                <v-col cols="11" class="text-caption" >
+                    &copy; {{ new Date().getFullYear() }} DatWik  
+                        &nbsp;|&nbsp; 
+                        <a href="/terms.html"  target="_blank">Terms</a>
+                        &nbsp;|&nbsp; 
+                        <dialog-feedback type="footer"></dialog-feedback>
+
                 </v-col>
-                <v-col cols="6">         
-                    <!-- <a href="https://twitter.com/datwik" target="_blank">           
-                        <v-icon size="25px">
-                            mdi-twitter
-                        </v-icon>                    
-                    </a> -->
-                </v-col>               
+            
             </v-row>
         </v-container>  
   </v-footer>
@@ -287,8 +280,8 @@
                 color="white"
                 flat
             >
-                <v-container class="py-0 fill-height">
-                    
+                <v-container class="py-0 pr-0 pr-md-2 fill-height">
+                        
                     <v-avatar
                         class="mr-10"
                         size="32"
@@ -315,20 +308,19 @@
                     <v-spacer></v-spacer>
             
 
-
-                    <!-- <dialog-feedback></dialog-feedback> -->
+                    <dialog-feedback type="toolbar"></dialog-feedback>
                     
                     <v-card
-                        outlined                    
+                        elevation=0                    
                         min-width=60                        
                     >   
-                      <v-card-actions class="pr-2 py-1">
-                        <div class="grey--text mr-2"><strong>ON</strong></div>
+                    <v-card-actions class="py-0 pr-0 pr-md-2">
+                        <div class="grey--text text-body-2 mr-1"><b>ON</b></div>
                         <v-img
-                            max-width="32"
+                            max-width="24"
                             src="theme/img/flags/canada_128.png"
                         ></v-img>                        
-                      </v-card-actions>                     
+                    </v-card-actions>                     
                     </v-card>
                 </v-container>
             </v-app-bar>
@@ -350,73 +342,113 @@
             Open Dialog
           </v-btn> -->
 
-          <!-- <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }"> -->
+          <!-- <v-tooltip bottom> -->
+            <template v-if="type=='toolbar'">
                 <v-btn icon color="primary" v-bind="attrs" v-on="on">
                     <!-- <span class="hidden-md-and-down"> Feedback</span> -->
                     <v-icon>mdi-send</v-icon>
                 </v-btn>
-            <!-- </template> -->
-            <!-- <span>Send Feedback</span> -->
+            </template>
+            <template v-else-if="type=='side'">
+              <v-btn
+                  color="primary"
+                  elevation="10"
+                  class="feedbackButton hidden-md-and-down"    
+                  v-bind="attrs" v-on="on"            
+              >
+                  Feedback                    
+              </v-btn>                  
+            </template>
+            <template v-else>
+              <a href="#"  v-on:click.stop="showDialog">Contact Us</a>
+            </template>
+
+              <!-- <span>Send Feedback</span> -->
         <!-- </v-tooltip> -->
 
+
+
         </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">We'd like to hear from you!</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-                <v-row>
-                    <v-col cols="12">
-                      <v-text-field
-                        label="Your email"
-                        :value="feedbackEmail"
-                        required
-                      ></v-text-field>                      
-                    </v-col>
-                    <v-col
-                      cols="12"
-                    >
-                      <v-autocomplete
-                        :items="['Website', 'New topic suggestion', 'Correction', 'General']"
-                        label="Theme*"
-                        :value="feedbackTheme"
-                        multiple
-                      ></v-autocomplete>
-                    </v-col>
-                    <v-col
-                      cols="12"
-                    >
-                    <v-textarea
-                      counter
-                      label="Feedback*"
-                      :rules="rules"
-                      :value="feedbackText"
-                    ></v-textarea>
-                    </v-col>                
-                  </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            >
-              Close
-            </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-form
+          ref="feedbackForm"
+          v-model="valid"
+          lazy-validation
+        >               
+          <v-card>
+            <v-card-title class="pa-0">
+                <v-toolbar
+                dark
+                color="primary"
+                elevation="0"
+              >
+                <v-toolbar-title>Contact Us</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                  icon
+                  dark
+                  @click="dialog = false"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+                </v-toolbar-items>
+              </v-toolbar>              
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                  <v-row>
+                      <v-col cols="12">
+                        <v-text-field
+                          label="Your email"
+                          v-model="feedbackEmail"
+                          :rules="feedbackEmailRules"
+                          required
+                        ></v-text-field>                      
+                      </v-col>
+                      <v-col
+                        cols="12"
+                      >
+                        <v-select
+                          :items="['General', 'Correction', 'Website', 'New topic']"
+                          label="Theme"
+                          v-model="feedbackTheme"
+                          :rules="feedbackThemeRules"
+                          multiple
+                        ></v-select>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                      >
+                      <v-textarea
+                        counter
+                        label="Feedback*"
+                        rows="3"
+                        :rules="feedbackTextRules"
+                        v-model="feedbackText"
+                      ></v-textarea>
+                      </v-col>                
+                    </v-row>
+              </v-container>
+              <small class="ml-3">*indicates required field</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialog = false"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="onSendFeedback"
+              >
+                Send
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </v-dialog>
 </script>
     
@@ -430,6 +462,7 @@ var api = { url:'https://api.datwik.com'}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.2/vuex.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/validator@13.5.2/validator.min.js'></script>
 
 <script src="theme/js/captions.js"></script>
 <script src="theme/js/util.js"></script>
