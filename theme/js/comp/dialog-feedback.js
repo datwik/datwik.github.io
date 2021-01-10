@@ -4,6 +4,12 @@ Vue.component('dialog-feedback', {
       data: () => ({ 
         valid: true,
         dialog: false,        
+
+        feedbackSnackbar: false,
+        feedbackSnackbarTimeout: 2000,
+        feedbackSnackbarColor:'primary',
+        feedbackSentText: 'Thank you for your feedback!',
+
         feedbackEmail: '',
         feedbackEmailRules:[
           v => !v || validator.isEmail(v) || 'Invalid email'
@@ -38,6 +44,19 @@ Vue.component('dialog-feedback', {
           this.dialog = true;
         },
 
+        onCancel: function(){
+          this.closeDialog()
+        },       
+ 
+        closeDialog: function(){
+          var self = this;
+          this.dialog = false;
+          this.$nextTick(() => {
+            if(self.$refs.toolbarButton)
+              self.$refs.toolbarButton.$el.blur();
+          });
+        },    
+
         onSendFeedback: function(){
           if(!this.$refs.feedbackForm.validate())
           {
@@ -45,11 +64,12 @@ Vue.component('dialog-feedback', {
           }
 
           this.sendFeedback();
-          this.dialog = false;          
+          this.closeDialog();
         },
 
         sendFeedback:function(){   
             var self = this;
+            // console.log('Text', self.feedbackText, self.feedbackEmail);
             var headers = {};
             axios({
                 url: self.$store.state.api + '/action/feedback',
@@ -64,15 +84,18 @@ Vue.component('dialog-feedback', {
                       't': self.feedbackText,
                   }
                 },
-                // withCredentials: true  //  Credential is not supported if the CORS header ‘Access-Control-Allow-Origin’ is ‘*’
+                withCredentials: true
             }).then(function(res) {
-                // console.log('Feedback sent');
+              self.feedbackSnackbarColor = 'primary'
+              self.feedbackSentText = 'Thank you for your feedback!';
+              self.feedbackSnackbar = true;                              
             }).catch(function(e) {
-                console.log('Error: ' + e );
+              console.log('Error: ' + e );
+              self.feedbackSnackbarColor = 'red'
+              self.feedbackSentText = 'Error sending feedback, please try again'
+              self.feedbackSnackbar = true;              
             });
-
         }
-
       }
     });
     

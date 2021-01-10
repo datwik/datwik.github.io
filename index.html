@@ -327,27 +327,22 @@
 </script>
             
 <script id="dialog-feedback-template" type="text/x-template">
+  <div style="display: inline-block;">
       <v-dialog
         v-model="dialog"
         persistent
         max-width="600px"
       >
         <template v-slot:activator="{ on, attrs }">
-          <!-- <v-btn
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"            
-          >
-            Open Dialog
-          </v-btn> -->
-
-          <!-- <v-tooltip bottom> -->
             <template v-if="type=='toolbar'">
-                <v-btn icon color="primary" v-bind="attrs" v-on="on">
-                    <!-- <span class="hidden-md-and-down"> Feedback</span> -->
-                    <v-icon>mdi-send</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on: onTooltip, attrs }">
+                    <v-btn icon color="primary" v-bind="attrs"v-on="{ ...on, ...onTooltip }" ref="toolbarButton">
+                        <v-icon>mdi-send</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Send Feedback</span>
+                </v-tooltip>
             </template>
             <template v-else-if="type=='side'">
               <v-btn
@@ -362,12 +357,6 @@
             <template v-else>
               <a href="#"  v-on:click.stop="showDialog">Contact Us</a>
             </template>
-
-              <!-- <span>Send Feedback</span> -->
-        <!-- </v-tooltip> -->
-
-
-
         </template>
         <v-form
           ref="feedbackForm"
@@ -435,7 +424,7 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="dialog = false"
+                @click="onCancel"
               >
                 Cancel
               </v-btn>
@@ -450,6 +439,24 @@
           </v-card>
         </v-form>
       </v-dialog>
+      <v-snackbar
+        v-model="feedbackSnackbar"
+        :timeout="feedbackSnackbarTimeout"
+        :color="feedbackSnackbarColor"
+      >
+        {{ feedbackSentText }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            text            
+            v-bind="attrs"
+            @click="feedbackSnackbar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>      
+    </div>
 </script>
     
 
