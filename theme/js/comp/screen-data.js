@@ -2,8 +2,23 @@ Vue.component('screen-data', {
     template: '#screen-data-template',
   
     data: () => ({
-        dialog: false,
-        dialogDelete: false,
+        editFieldDialog: false,
+        editFieldValue: '',
+        editFieldRules:[
+          v => !!v || 'Please enter the price',
+          v => v && validator.isCurrency(v, {allow_negatives:false,digits_after_decimal:[1,2]}) || 'Invalid price'
+        ],
+        editFieldValid: true,
+        editFieldLabel: '',
+        editFieldRowName: '',
+        editFieldName: '',
+        editFieldOid: '',
+        editFieldSnackbar: false,
+        editFieldSnackbarTimeout: 2000,
+        editFieldSnackbarColor:'primary',
+        editFieldSentText: 'Thank you for your feedback!',
+
+
         headers: [],
         dataRows: [],
         editedIndex: -1,
@@ -45,9 +60,17 @@ Vue.component('screen-data', {
         },
 
         linkSlots: function () {
-          return Array.from( this.$store.state.fields.values()).
+          var e = Array.from( this.$store.state.fields.values()).
                   filter(f => f.subtype == 1).
                   map(f => f.field.replace('_url', ''));
+          return e;
+        },
+
+        editSlots: function () {
+          var e = Array.from( this.$store.state.fields.values()).
+                  filter(f => f.editable).
+                  map(f => f.field);
+          return e;
         },
 
         hasExpandedFields: function () {
@@ -66,13 +89,11 @@ Vue.component('screen-data', {
       },
   
       watch: {
-        dialog (val) {
-          val || this.close()
+        editFieldDialog() {
+          if(this.$refs.editFieldForm)
+            this.$refs.editFieldForm.reset();
         },
-        dialogDelete (val) {
-          val || this.closeDelete()
-        },
-
+        
         options() {
             this.fetchRows();
         }
@@ -239,12 +260,68 @@ Vue.component('screen-data', {
 
         get_url_text: function(item, slot){
           return item[slot]
-        }
-        ,
+        },
+
+        get_text: function(item, slot){
+          return item[slot];
+        },
+
+        onShowEditFieldDialog: function(item, slot){
+          var fields = Array.from(this.$store.state.fields.values());
+          this.editFieldLabel = this.c(slot)
+          this.editFieldRowName = item[fields[0].field] + ' - ' + item[fields[1].field]
+          this.editFieldOid = item['id'];
+          this.editFieldName = slot;
+          this.editFieldDialog = true;        
+        },
+
+        onCancelEditField: function(){
+          this.editFieldDialog = false;
+        },
+
+        onSubmitEditField: function(){
+          if(!this.$refs.editFieldForm.validate())
+          {
+              return;
+          }
+
+          this.sendFieldValue();
+          this.editFieldDialog = false;
+        },
+
+
+        sendFieldValue:function(){   
+          var self = this;
+          var headers = {};
+          axios({
+              url: self.$store.state.api + '/action/field_value',
+              method: 'post',
+              headers: headers,
+              data: {
+                't': self.$store.state.tableId,
+                'o': self.editFieldOid,
+                'f': self.editFieldName,
+                'v': self.editFieldValue
+              },
+              withCredentials: true
+          }).then(function(res) {
+            self.editFieldSnackbarColor = 'primary'
+            self.editFieldSentText = 'Thank you for reporting current price!';
+            self.editFieldSnackbar = true;                              
+          }).catch(function(e) {
+            console.log('Error: ' + e );
+            self.editFieldSnackbarColor = 'red'
+            self.editFieldSentText = 'Error sending current price, please try again'
+            self.editFieldSnackbar = true;              
+          });
+      },
+    
+
 
         c: function(k){
           return this.$store.state.captions[k];
         }
+
       },
 
   });

@@ -83,7 +83,7 @@ Vue.component('dialog-feedback', {
                       't': self.feedbackText,
                   }
                 },
-                // withCredentials: true
+                withCredentials: true
             }).then(function(res) {
               self.feedbackSnackbarColor = 'primary'
               self.feedbackSentText = 'Thank you for your feedback!';
