@@ -3,6 +3,7 @@ dw_captions['en'] =  {
 
   'streaming_service_name': 'Streaming Services',
   'streaming_service_icon': 'mdi-play-box-multiple',
+  'streaming_service_footer': 'Prices do not include taxes, possible discounts and may be in US dollars.',
 
   'covid_test_centre_name': 'COVID19 Testing Centres',
   'covid_test_centre_icon': 'mdi-medical-bag',
@@ -11,6 +12,9 @@ dw_captions['en'] =  {
   'internet_service_provider_icon': 'mdi-wan',
   'internet_service_provider_footer': 'Prices do not include taxes or possible discounts.',
 
+  'fi_small_business_account_name': 'Small Business Accounts',
+  'fi_small_business_account_icon': 'mdi-bank',
+  'fi_small_business_account_footer': 'Prices do not include possible special deals.',
 
   'company': 'Company',
   'account': 'Account',
@@ -28,7 +32,6 @@ dw_captions['en'] =  {
   'phone' : 'Phone',
   'appointments' : 'Appt',
   'phone_appointments' : 'Phone Appt',
-  'online_appointments' : 'Online Appt',
   'online_appointments' : 'Online Appt',
   'additional_information':'Additional',
   'monday':'Monday',
@@ -53,6 +56,15 @@ dw_captions['en'] =  {
   'down_speed_mbps': 'Download Speed Mbps',
   'up_speed_mbps': 'Upload Speed Mbps',
   'municipality' : 'City',
+
+  'institution' : 'Institution',
+  'account_type': 'Account Type',
+  'monthly_fee': 'Monthly Fee',
+  'monthly_fee_rebate_balance': 'Min. Balance',
+  'minimum_deposit': 'Min. Deposit',
+  'transactions': 'Transactions',
+  'fee_schedule': 'Fee Schedule'
+
 };
 
 var dw_ca_provinces = {};

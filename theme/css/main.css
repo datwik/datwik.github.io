@@ -17,3 +17,10 @@
     right: 0px;
     top: 45%;
   }
+
+@media #{map-get($display-breakpoints, 'xs-only')} {
+    tbody {
+      display: flex;
+      flex-direction: column;
+    }
+}
