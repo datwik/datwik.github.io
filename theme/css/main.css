@@ -18,9 +18,8 @@
     top: 45%;
   }
 
-@media #{map-get($display-breakpoints, 'xs-only')} {
-    tbody {
-      display: flex;
-      flex-direction: column;
-    }
+@media only screen and (max-width: 599px) {
+  .main-data-table-fix > div > table > tbody {
+    display: block !important;
+  }
 }
